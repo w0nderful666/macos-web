@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>macOS Web</title>
+  <link rel="stylesheet" href="css/macos.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%EF%A3%BF%3C/text%3E%3C/svg%3E" />
+</head>
+<body>
+  <!-- BOOT -->
+  <div id="boot" class="screen boot">
+    <div class="boot-logo" aria-hidden="true">
+      <svg viewBox="0 0 814 1000" width="72" height="88" fill="#fff">
+        <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76.5 0-103.7 40.8-165.9 40.8s-105.6-57-155.5-127.4C46.7 739.6 0 623 0 509.2c0-183.3 119.3-280.4 236.6-280.4 62.2 0 114.1 40.8 153.3 40.8 37.1 0 95.1-43.4 165.9-43.4 26.7 0 122.6 2.6 186.3 98.7zM554.1 159.4c29.9-35.7 51.3-85.2 51.3-134.7 0-6.9-.6-13.8-1.9-19.4-48.7 1.9-106.5 33.1-141.3 74.3-27.3 31.8-52.6 82.1-52.6 132.3 0 7.5.6 15 1.9 21.9 1.3 0 2.6.6 4.5.6 46.8 0 105.8-31.2 137.1-75z"/>
+      </svg>
+    </div>
+    <div class="boot-progress"><div class="boot-bar" id="bootBar"></div></div>
+  </div>
+
+  <!-- LOGIN -->
+  <div id="login" class="screen login hidden">
+    <div class="login-bg"></div>
+    <div class="login-time" id="loginTime">9:41</div>
+    <div class="login-date" id="loginDate">星期四，7月9日</div>
+    <div class="login-user">
+      <div class="login-avatar" id="loginAvatar">W</div>
+      <div class="login-name">Winter</div>
+      <form class="login-form" id="loginForm" autocomplete="off">
+        <input type="password" id="loginPass" placeholder="输入密码" spellcheck="false" />
+        <button type="submit" class="login-go" aria-label="登录">→</button>
+      </form>
+      <div class="login-hint">密码随便填（可空）→ 回车，或直接点头像进入</div>
+    </div>
+    <div class="login-bottom">
+      <button type="button" class="login-power" id="sleepBtn" title="睡眠">⏻</button>
+    </div>
+  </div>
+
+  <!-- DESKTOP -->
+  <div id="desktop" class="screen desktop hidden">
+    <div class="wallpaper" id="wallpaper"></div>
+
+    <!-- Menu Bar -->
+    <header class="menubar" id="menubar">
+      <div class="menubar-left">
+        <button class="mb-item apple" id="appleBtn" aria-label="Apple 菜单">
+          <svg viewBox="0 0 17 20" width="14" height="16" fill="currentColor"><path d="M13.9 10.6c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.2-2.8.9-3.5.9s-1.8-.8-3-.8c-1.5 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.3.8 1.1 1.7 2.3 3 2.3 1.2 0 1.6-.7 3-.7s1.8.7 3 .7 2-1.1 2.8-2.2c.9-1.3 1.2-2.5 1.3-2.6-.1 0-2.4-.9-2.4-3.9zm-2.3-6.7c.6-.8 1.1-1.9 1-3-.9 0-2 .6-2.7 1.4-.6.7-1.1 1.8-1 2.9 1.1.1 2.1-.5 2.7-1.3z"/></svg>
+        </button>
+        <button class="mb-item app-name" id="menuAppName">Finder</button>
+        <div class="mb-menus" id="menuItems">
+          <!-- filled by JS per app -->
+        </div>
+      </div>
+      <div class="menubar-right">
+        <button class="mb-status" id="ccBtn" title="控制中心" aria-label="控制中心">
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="1" width="6" height="6" rx="1.2"/><rect x="9" y="1" width="6" height="6" rx="1.2"/><rect x="1" y="9" width="6" height="6" rx="1.2"/><rect x="9" y="9" width="6" height="6" rx="1.2"/></svg>
+        </button>
+        <button class="mb-status wifi" title="Wi‑Fi · Lumen_5G">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M12 18.5a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm-4.2-3.1a6 6 0 018.4 0l-1.4 1.4a4 4 0 00-5.6 0l-1.4-1.4zm-2.9-2.9a10 10 0 0114.2 0l-1.4 1.4a8 8 0 00-11.4 0L4.9 12.5zM1.1 9.6a15 15 0 0121.8 0l-1.4 1.4a13 13 0 00-19 0L1.1 9.6z"/></svg>
+        </button>
+        <button class="mb-status" title="聚焦搜索" id="spotlightBtn" aria-label="Spotlight">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5L14 14" stroke-linecap="round"/></svg>
+        </button>
+        <button class="mb-status battery" title="电池 · 电源适配器">
+          <svg viewBox="0 0 28 14" width="22" height="12"><rect x="0.5" y="1.5" width="23" height="11" rx="2.5" stroke="currentColor" fill="none" stroke-width="1.2"/><rect x="2.2" y="3.2" width="17" height="7.5" rx="1.2" fill="currentColor"/><path d="M24.5 4.5h1.2a1.8 1.8 0 010 5H24.5" fill="currentColor"/></svg>
+          <span>87%</span>
+        </button>
+        <button class="mb-status clock" id="menuClock">Thu 9:41 AM</button>
+      </div>
+    </header>
+
+    <!-- Apple menu dropdown -->
+    <div class="dropdown apple-menu hidden" id="appleMenu">
+      <button data-action="about">关于本机</button>
+      <div class="sep"></div>
+      <button data-action="settings">系统设置…</button>
+      <button data-action="appstore">App Store…</button>
+      <div class="sep"></div>
+      <button data-action="sleep">睡眠</button>
+      <button data-action="restart">重新启动…</button>
+      <button data-action="shutdown">关机…</button>
+      <div class="sep"></div>
+      <button data-action="logout">退出登录 Winter…</button>
+    </div>
+
+    <!-- Desktop icons -->
+    <div class="desktop-icons" id="desktopIcons"></div>
+
+    <!-- Windows layer -->
+    <div class="windows-layer" id="windowsLayer"></div>
+
+    <!-- Dock -->
+    <footer class="dock-wrap" id="dockWrap">
+      <div class="dock" id="dock"></div>
+    </footer>
+
+    <!-- Spotlight -->
+    <div class="spotlight-overlay hidden" id="spotlight">
+      <div class="spotlight">
+        <div class="spotlight-bar">
+          <span class="sp-icon">⌕</span>
+          <input type="text" id="spotlightInput" placeholder="Spotlight 搜索" autocomplete="off" spellcheck="false" />
+        </div>
+        <div class="spotlight-results" id="spotlightResults"></div>
+      </div>
+    </div>
+
+    <!-- Launchpad -->
+    <div class="launchpad hidden" id="launchpad">
+      <div class="launchpad-search">
+        <input type="text" id="lpSearch" placeholder="搜索" autocomplete="off" />
+      </div>
+      <div class="launchpad-grid" id="launchpadGrid"></div>
+    </div>
+
+    <!-- Control Center -->
+    <div class="control-center hidden" id="controlCenter">
+      <div class="cc-grid">
+        <div class="cc-card dual">
+          <button class="cc-tile active" data-toggle="wifi"><span class="dot">◉</span><div><b>Wi‑Fi</b><small>Lumen_5G</small></div></button>
+          <button class="cc-tile active" data-toggle="bt"><span class="dot">⬡</span><div><b>蓝牙</b><small>开</small></div></button>
+          <button class="cc-tile" data-toggle="airdrop"><span class="dot">🜨</span><div><b>隔空投送</b><small>仅联系人</small></div></button>
+          <button class="cc-tile active" data-toggle="focus"><span class="dot">☾</span><div><b>专注模式</b><small>关闭</small></div></button>
+        </div>
+        <div class="cc-card">
+          <div class="cc-label">显示</div>
+          <input type="range" id="brightness" min="40" max="100" value="100" />
+        </div>
+        <div class="cc-card">
+          <div class="cc-label">声音</div>
+          <input type="range" id="volume" min="0" max="100" value="62" />
+        </div>
+        <div class="cc-card music">
+          <div class="cc-music-art">♪</div>
+          <div>
+            <b>未在播放</b>
+            <small>音乐</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notification Center (click clock) -->
+    <div class="notif-center hidden" id="notifCenter">
+      <div class="nc-widgets">
+        <div class="widget calendar">
+          <div class="w-day" id="wDay">星期四</div>
+          <div class="w-date" id="wDate">9</div>
+          <div class="w-events">
+            <div><span class="ev-dot"></span> macOS Web Demo</div>
+            <div><span class="ev-dot blue"></span> 系统展示</div>
+          </div>
+        </div>
+        <div class="widget weather">
+          <div class="w-city">上海</div>
+          <div class="w-temp">26°</div>
+          <div class="w-desc">晴间多云</div>
+        </div>
+        <div class="widget tips">
+          <b>提示</b>
+          <p>按 <kbd>⌘</kbd><kbd>Space</kbd> 打开 Spotlight<br/>按 <kbd>⌘</kbd><kbd>Tab</kbd> 切换应用</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Context menu -->
+    <div class="ctx-menu hidden" id="ctxMenu"></div>
+
+    <!-- App switcher -->
+    <div class="app-switcher hidden" id="appSwitcher">
+      <div class="as-inner" id="asInner"></div>
+    </div>
+
+    <!-- Mission Control -->
+    <div class="mission-control hidden" id="missionControl">
+      <div class="mc-backdrop"></div>
+      <div class="mc-windows" id="mcWindows"></div>
+      <div class="mc-spaces" id="mcSpaces"></div>
+      <div class="mc-hint">点选窗口恢复 · 底部切换桌面 · Esc 退出</div>
+    </div>
+
+    <!-- Notification banners -->
+    <div class="notif-banners" id="notifBanners"></div>
+
+    <!-- Toast -->
+    <div class="toast hidden" id="toast"></div>
+
+    <!-- Hot corner hints (invisible hit targets visual only when debugging) -->
+    <div class="hot-corners" aria-hidden="true">
+      <span class="hc tl" title="调度中心"></span>
+      <span class="hc tr" title="通知中心"></span>
+      <span class="hc bl" title="启动台"></span>
+      <span class="hc br" title="显示桌面"></span>
+    </div>
+  </div>
+
+  <script src="js/fx.js"></script>
+  <script src="js/vfs.js"></script>
+  <script src="js/shell.js"></script>
+  <script src="js/icons.js"></script>
+  <script src="js/apps.js"></script>
+  <script src="js/wm.js"></script>
+  <script src="js/macos.js"></script>
+</body>
+</html>
